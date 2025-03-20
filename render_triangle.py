@@ -26,7 +26,7 @@ def draw_triangle(image, triangle, triangle_color):
             E2 = a2 * x + b2 * y + c2
             # print (E0, E1, E2)
             # Check if the point is left or right of all edges
-            if E0 >= 0 and E1 >= 0 and E2 >= 0:
+            if (E0 >= 0 and E1 >= 0 and E2 >= 0) or (E0 <= 0 and E1 <= 0 and E2 <= 0):
                 # Sets a pixel on the image if within bounds
                 if 0 <= x < image.width and 0 <= y < image.height:
                     image.putpixel((x, y), triangle_color)
