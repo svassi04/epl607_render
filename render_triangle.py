@@ -1,9 +1,6 @@
 from PIL import Image, ImageDraw
 import math 
 
-
-
-
 def draw_triangle(image, triangle, triangle_color):
 
     v0, v1, v2 = triangle
@@ -15,10 +12,6 @@ def draw_triangle(image, triangle, triangle_color):
     max_y = min(max(v0[1], v1[1], v2[1]), image.height - 1)
 
     # Compute edge properties
-    # a0, b0, c0 = v1[1] - v2[1], v2[0] - v1[0], v1[0] * v2[1] - v2[0] * v1[1]
-    # a1, b1, c1 = v2[1] - v0[1], v0[0] - v2[0], v2[0] * v0[1] - v0[0] * v2[1]
-    # a2, b2, c2 = v0[1] - v1[1], v1[0] - v0[0], v0[0] * v1[1] - v1[0] * v0[1]
-
     a0, b0, c0 = v2[1] - v1[1], v1[0] - v2[0], v2[0] * v1[1] - v1[0] * v2[1]
     a1, b1, c1 = v0[1] - v2[1], v2[0] - v0[0], v0[0] * v2[1] - v2[0] * v0[1]
     a2, b2, c2 = v1[1] - v0[1], v0[0] - v1[0], v1[0] * v0[1] - v0[0] * v1[1]
