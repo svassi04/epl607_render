@@ -2,14 +2,16 @@ from PIL import Image
 import math
 
 def project_vertex(v, width, height):
-    """Project a 3D vertex and shift to screen center. Keeps original Z for depth."""
-    if v[2] == 0:
-        return (v[0], v[1], v[2])
-    x = v[0] / v[2]
-    y = v[1] / v[2]
-    screen_x = int(x + width / 2)
-    screen_y = int(height / 2 - y)
-    return (screen_x, screen_y, v[2])
+    x = v[0] - width / 2
+    y = v[1] - height / 2
+    z = v[2]
+    if z == 0:
+        return None  
+    x_proj = x / z
+    y_proj = y / z
+    screen_x = int(x_proj + width / 2)
+    screen_y = int(height / 2 - y_proj)
+    return (screen_x, screen_y, z)
 
 def projection(triangle, width, height):
     return tuple(project_vertex(v, width, height) for v in triangle)
@@ -44,6 +46,8 @@ def is_inside(p, v0, v1, v2):
 
 def draw_triangle(image, triangle, triangle_color, WIDTH, HEIGHT, depth_buffer):
     projected = projection(triangle, WIDTH, HEIGHT)
+    if None in projected:
+        return
     v0, v1, v2 = projected
 
     min_x = max(min(v0[0], v1[0], v2[0]), 0)
